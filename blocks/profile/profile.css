@@ -1,0 +1,35 @@
+.profile {
+  display: flex;
+  justify-content: space-between;
+  width: calc((100vw - 320px) / (1280 - 320) * (880 - 320) + 300px);
+  margin: 0 auto 51px;
+}
+@media screen and (min-width: 1280px) {
+  .profile {
+    width: 880px;
+   
+  }
+}
+@media screen and (max-width: 1100px) {
+  .profile {
+    width: calc(100% - 2 * 109px);
+  }
+}
+
+@media screen and (max-width: 838px) {
+  .profile {
+    flex-direction: column;
+    margin: 0 auto 36px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    width: calc(100% - 2 * 70px);
+  }
+}
+@media screen and (max-width: 560px) {
+  .profile {
+    width: calc(100% - 38px);
+  }
+}

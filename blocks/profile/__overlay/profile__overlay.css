@@ -1,0 +1,9 @@
+.profile__overlay {
+  display: flex;
+}
+@media screen and (max-width: 620px) {
+  .profile__overlay {
+    flex-direction: column;
+    align-items: center;
+  }
+}

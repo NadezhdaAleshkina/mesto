@@ -1,0 +1,15 @@
+.footer {
+  width: calc((100vw - 320px) / (1280 - 320) * (880 - 320) + 318px);
+  margin: 67px auto calc((100vw - 320px) / (1280 - 320) * (60 - 36) + 36px);
+  padding-left: calc((100vw - 320px) / (1280 - 320) * (0 - 19) + 19px);
+}
+
+@media screen and (max-width: 480px) {
+  .footer {
+    margin: 0;
+    max-width: 100%;
+    margin-top: 48px;
+    margin-bottom: 36px;
+    box-sizing: border-box;
+  }
+}
