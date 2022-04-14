@@ -1,8 +1,8 @@
-.profile__overlay {
+.profile__card {
   display: flex;
 }
 @media screen and (max-width: 620px) {
-  .profile__overlay {
+  .profile__card {
     flex-direction: column;
     align-items: center;
   }

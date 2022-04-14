@@ -5,7 +5,7 @@
   background-size: 100%;
   height: 19px;
   width: 22px;
-  position: absolute;
+  display: inline-block;
 }
 .element__like-btn:hover {
   opacity: 0.5;
