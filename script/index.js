@@ -25,23 +25,25 @@ const initialCards = [
   },
 ];
 //переменные
-const popup = document.querySelectorAll(".popup");
+const popupList = document.querySelectorAll(".popup");
 const popupEdit = document.querySelector(".popup_edit");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_job");
 const editButton = document.querySelector(".profile__btn-edit");
-const formElement = popupEdit.querySelector(".popup__form");
-const closeEditButton = popupEdit.querySelector(".popup__btn-close");
+const formElementEdit = popupEdit.querySelector(".popup__form");
+const closesButton = popupEdit.querySelector(".popup__btn-close");
 
 const popupImageElement = document.querySelector(".popup-image");
 const popupImageClose = popupImageElement.querySelector(".popup__btn-close");
+const popupImage = popupImageElement.querySelector(".popup__image");
+const popupImageInfo = popupImageElement.querySelector(".popup__caption");
 
-const popapOpenAdd = document.querySelector(".popup_add");
-const formAdd = popapOpenAdd.querySelector(".popup__form");
-const closeAddButton = popapOpenAdd.querySelector(".popup__btn-close");
-const openAddButton = document.querySelector(".profile__btn-add");
+const popupElemeht = document.querySelector(".popup_add");
+const formAdd = popupElemeht.querySelector(".popup__form");
+const popupCloseAdd = popupElemeht.querySelector(".popup__btn-close");
+const popupOpenAdd = document.querySelector(".profile__btn-add");
 const inputPlaceName = document.querySelector("#place-name");
 const inputPlaceLink = document.querySelector("#place-link");
 const elementTemplate = document
@@ -49,14 +51,20 @@ const elementTemplate = document
   .content.querySelector(".element");
 const elementContainer = document.querySelector(".elements__list");
 
+//функция открытия попапа
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  editProfileFormInputs();
+}
+//функция закрытия попапа
+function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+}
+
 //функции редактирования профиля
-function profileElement() {
+function editProfileFormInputs() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-}
-function openPopupToggle(index) {
-  popup[index].classList.toggle("popup_opened");
-  profileElement();
 }
 
 function formSubmitHandler(evt) {
@@ -66,26 +74,26 @@ function formSubmitHandler(evt) {
   popupEdit.classList.toggle("popup_opened");
 }
 //  Открыть закрыть слушатель попапа для редактирования
-editButton.addEventListener("click", () => openPopupToggle(0));
-closeEditButton.addEventListener("click", () => openPopupToggle(0));
+editButton.addEventListener("click", () => openPopup(popupEdit));
+closesButton.addEventListener("click", () => closePopup(popupEdit));
 // сохранение изменений
-formElement.addEventListener("submit", formSubmitHandler);
+formElementEdit.addEventListener("submit", formSubmitHandler);
 
 // Изображение закрыть слушатель
-popupImageClose.addEventListener("click", () => openPopupToggle(2));
+popupImageClose.addEventListener("click", () => closePopup(popupImageElement));
 
 //Слушатель открыть закрыть попап добавления карточек
 
-openAddButton.addEventListener("click", () => openPopupToggle(1));
-closeAddButton.addEventListener("click", () => openPopupToggle(1));
+popupOpenAdd.addEventListener("click", () => openPopup(popupElemeht));
+popupCloseAdd.addEventListener("click", () => closePopup(popupElemeht));
 
 //функции попап добавления карточек
 const handleSubmitAddElementForm = (event) => {
   event.preventDefault();
   renderElement({ name: inputPlaceName.value, link: inputPlaceLink.value });
+  closePopup(popupElemeht);
   inputPlaceName.value = "";
   inputPlaceLink.value = "";
-  openPopupToggle(1);
 };
 
 const handleDeleteElementCard = (event) => {
@@ -96,20 +104,17 @@ const handleDeleteElementCard = (event) => {
 
 const generateElement = (elementData) => {
   const newElement = elementTemplate.cloneNode(true);
-
   const titleElement = newElement.querySelector(".element__title");
   titleElement.textContent = elementData.name;
-
   const imgElement = newElement.querySelector(".element__image");
   imgElement.src = elementData.link;
+  imgElement.alt = elementData.name;
 
   imgElement.addEventListener("click", (evt) => {
-    popupImageElement.classList.toggle("popup_opened");
-    const popupImage = popupImageElement.querySelector(".popup__image");
-    const popupImageInfo = popupImageElement.querySelector(".popup__caption");
-    popupImage.src = evt.target.src;
-    popupImageInfo.textContent = titleElement.textContent;
-    popupImage.alt = evt.target.alt;
+    popupImage.src = elementData.link;
+    popupImageInfo.textContent = elementData.name;
+    popupImage.alt = elementData.name;
+    popupImageElement.classList.add("popup_opened");
   });
 
   const likeButton = newElement.querySelector(".element__like-btn");
