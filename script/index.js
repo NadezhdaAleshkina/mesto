@@ -31,9 +31,9 @@ const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_job");
-const editButton = document.querySelector(".profile__btn-edit");
+const buttonEdit = document.querySelector(".profile__btn-edit");
 const formElementEdit = popupEdit.querySelector(".popup__form");
-const closesButton = popupEdit.querySelector(".popup__btn-close");
+const buttonClose = popupEdit.querySelector(".popup__btn-close");
 
 const popupImageElement = document.querySelector(".popup-image");
 const popupImageClose = popupImageElement.querySelector(".popup__btn-close");
@@ -54,11 +54,16 @@ const elementContainer = document.querySelector(".elements__list");
 //функция открытия попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  editProfileFormInputs();
 }
 //функция закрытия попапа
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+}
+
+//функция для открытия попапа редактирования
+function openPropfilePopup() {
+  editProfileFormInputs();
+  openPopup(popupEdit);
 }
 
 //функции редактирования профиля
@@ -71,11 +76,12 @@ function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  popupEdit.classList.toggle("popup_opened");
+  closePopup(popupEdit);
 }
 //  Открыть закрыть слушатель попапа для редактирования
-editButton.addEventListener("click", () => openPopup(popupEdit));
-closesButton.addEventListener("click", () => closePopup(popupEdit));
+buttonEdit.addEventListener("click", () => openPropfilePopup());
+buttonClose.addEventListener("click", () => closePopup(popupEdit));
+
 // сохранение изменений
 formElementEdit.addEventListener("submit", formSubmitHandler);
 
@@ -114,16 +120,16 @@ const generateElement = (elementData) => {
     popupImage.src = elementData.link;
     popupImageInfo.textContent = elementData.name;
     popupImage.alt = elementData.name;
-    popupImageElement.classList.add("popup_opened");
+    openPopup(popupImageElement);
   });
 
-  const likeButton = newElement.querySelector(".element__like-btn");
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("element__like-btn_active");
+  const buttonLike = newElement.querySelector(".element__like-btn");
+  buttonLike.addEventListener("click", () => {
+    buttonLike.classList.toggle("element__like-btn_active");
   });
 
-  const deleteButton = newElement.querySelector(".element__delete-btn");
-  deleteButton.addEventListener("click", handleDeleteElementCard);
+  const buttonDelete = newElement.querySelector(".element__delete-btn");
+  buttonDelete.addEventListener("click", handleDeleteElementCard);
   return newElement;
 };
 
