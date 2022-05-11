@@ -45,8 +45,8 @@ const popupElemeht = document.querySelector(".popup_add");
 const formAdd = popupElemeht.querySelector(".popup__form");
 const popupCloseAdd = popupElemeht.querySelector(".popup__btn-close");
 const popupOpenAdd = document.querySelector(".profile__btn-add");
-const inputPlaceName = document.querySelector("#place-name");
-const inputPlaceLink = document.querySelector("#place-link");
+const inputPlaceName = document.querySelector("#title");
+const inputPlaceLink = document.querySelector("#link");
 const elementTemplate = document
   .querySelector(".element-template")
   .content.querySelector(".element");

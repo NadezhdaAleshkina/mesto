@@ -5,7 +5,7 @@ const enableValidation = {
   inactiveButtonClass: "popup__btn-save_inactive",
   inputErrorClass: "popup__input_type_error",
   errorClass: "`.${inputElement.id}-error`",
-  errorInput: "form__input-error_active",
+  errorInput: "popup__input-error_active",
   formSet: ".popup__fieldset",
 };
 // функция проверяет валидность поля ввода
