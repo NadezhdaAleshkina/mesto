@@ -34,7 +34,8 @@ const jobInput = document.querySelector(".popup__input_type_job");
 const buttonEdit = document.querySelector(".profile__btn-edit");
 const formElementEdit = popupEdit.querySelector(".popup__form");
 const buttonClose = popupEdit.querySelector(".popup__btn-close");
-
+const cardNameInput = document.querySelector(".popup__input_type_title");
+const cardLinkInput = document.querySelector(".popup__input_type_link");
 const popupImageElement = document.querySelector(".popup-image");
 const popupImageClose = popupImageElement.querySelector(".popup__btn-close");
 const popupImage = popupImageElement.querySelector(".popup__image");
@@ -54,9 +55,11 @@ const elementContainer = document.querySelector(".elements__list");
 //функция открытия попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keyup", handleEscUp);
 }
 //функция закрытия попапа
 function closePopup(popup) {
+  document.removeEventListener("keyup", handleEscUp);
   popup.classList.remove("popup_opened");
 }
 
@@ -78,6 +81,27 @@ function formSubmitHandler(evt) {
   profileJob.textContent = jobInput.value;
   closePopup(popupEdit);
 }
+
+// обработчик клика по кнопке Escape
+const handleEscUp = (event) => {
+  event.preventDefault();
+  if (event.key === "Escape") {
+    const activePopup = document.querySelector(".popup_opened");
+    closePopup(activePopup);
+  }
+};
+// функция закрытия попапа кликом на оверлей
+function closeOverlay(event) {
+  const activePopup = document.querySelector(".popup_opened");
+  if (event.target.classList.contains("popup")) {
+    closePopup(activePopup);
+  }
+}
+// закрытие попапов кликом на оверлей
+popupEdit.addEventListener("mousedown", closeOverlay);
+popupImageElement.addEventListener("mousedown", closeOverlay);
+popupElemeht.addEventListener("mousedown", closeOverlay);
+
 //  Открыть закрыть слушатель попапа для редактирования
 buttonEdit.addEventListener("click", () => openPropfilePopup());
 buttonClose.addEventListener("click", () => closePopup(popupEdit));
