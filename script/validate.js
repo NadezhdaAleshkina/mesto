@@ -1,4 +1,4 @@
-const enableValidation = {
+const validSettings = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__btn-save",
@@ -17,16 +17,16 @@ const hasInvalidInput = (inputList) => {
 // функция добавляет класс с ошибкой
 const showError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add(enableValidation.inputErrorClass);
+  inputElement.classList.add(validSettings.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(enableValidation.errorInput);
+  errorElement.classList.add(validSettings.errorInput);
 };
 
 // функция удаляет класс с ошибкой
 const hideError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove(enableValidation.inputErrorClass);
-  errorElement.classList.remove(enableValidation.errorInput);
+  inputElement.classList.remove(validSettings.inputErrorClass);
+  errorElement.classList.remove(validSettings.errorInput);
   errorElement.textContent = "";
 };
 // функция возвращает или убирает текст ошибки в зависимости от валидности поля ввода
@@ -41,19 +41,21 @@ const checkInputValidity = (formElement, inputElement) => {
 // функция отключает и включает кнопку
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(enableValidation.inactiveButtonClass);
+    buttonElement.classList.add(validSettings.inactiveButtonClass);
+    buttonElement.setAttribute("disabled", "disabled");
   } else {
-    buttonElement.classList.remove(enableValidation.inactiveButtonClass);
+    buttonElement.classList.remove(validSettings.inactiveButtonClass);
+    buttonElement.removeAttribute("disabled");
   }
 };
 
 // функция принимает элемент формы и добавляет ее полям нужные обработчики
 const setEventListeners = (formElement) => {
   const inputList = Array.from(
-    formElement.querySelectorAll(enableValidation.inputSelector)
+    formElement.querySelectorAll(validSettings.inputSelector)
   );
   const buttonElement = formElement.querySelector(
-    enableValidation.submitButtonSelector
+    validSettings.submitButtonSelector
   );
   toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
@@ -65,16 +67,16 @@ const setEventListeners = (formElement) => {
 };
 
 // функция находит и обрабатывает все формы на странице
-function Valid() {
+function enableValidation(validSettings) {
   const formList = Array.from(
-    document.querySelectorAll(enableValidation.formSelector)
+    document.querySelectorAll(validSettings.formSelector)
   );
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
     const fieldsetList = Array.from(
-      formElement.querySelectorAll(enableValidation.formSet)
+      formElement.querySelectorAll(validSettings.formSet)
     );
     fieldsetList.forEach((fieldSet) => {
       setEventListeners(fieldSet);
@@ -82,4 +84,4 @@ function Valid() {
   });
 }
 
-Valid();
+enableValidation(validSettings);

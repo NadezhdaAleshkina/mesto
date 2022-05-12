@@ -1,29 +1,3 @@
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
 //переменные
 const popupList = document.querySelectorAll(".popup");
 const popupEdit = document.querySelector(".popup_edit");
@@ -84,7 +58,6 @@ function formSubmitHandler(evt) {
 
 // обработчик клика по кнопке Escape
 const handleEscUp = (event) => {
-  event.preventDefault();
   if (event.key === "Escape") {
     const activePopup = document.querySelector(".popup_opened");
     closePopup(activePopup);
@@ -92,9 +65,8 @@ const handleEscUp = (event) => {
 };
 // функция закрытия попапа кликом на оверлей
 function closeOverlay(event) {
-  const activePopup = document.querySelector(".popup_opened");
   if (event.target.classList.contains("popup")) {
-    closePopup(activePopup);
+    closePopup(event.target);
   }
 }
 // закрытие попапов кликом на оверлей
@@ -124,6 +96,9 @@ const handleSubmitAddElementForm = (event) => {
   closePopup(popupElemeht);
   inputPlaceName.value = "";
   inputPlaceLink.value = "";
+  const buttonElement = formAdd.querySelector(".popup__btn-save");
+  buttonElement.classList.add(validSettings.inactiveButtonClass);
+  buttonElement.setAttribute("disabled", "disabled");
 };
 
 const handleDeleteElementCard = (event) => {
