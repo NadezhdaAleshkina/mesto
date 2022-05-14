@@ -97,8 +97,7 @@ const handleSubmitAddElementForm = (event) => {
   inputPlaceName.value = "";
   inputPlaceLink.value = "";
   const buttonElement = formAdd.querySelector(".popup__btn-save");
-  buttonElement.classList.add(validSettings.inactiveButtonClass);
-  buttonElement.setAttribute("disabled", "disabled");
+  disableSubmitButton(buttonElement, validSettings);
 };
 
 const handleDeleteElementCard = (event) => {
@@ -106,7 +105,6 @@ const handleDeleteElementCard = (event) => {
 };
 
 // Генерация карточки
-
 const generateElement = (elementData) => {
   const newElement = elementTemplate.cloneNode(true);
   const titleElement = newElement.querySelector(".element__title");

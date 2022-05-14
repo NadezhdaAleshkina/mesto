@@ -6,7 +6,6 @@ const validSettings = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "`.${inputElement.id}-error`",
   errorInput: "popup__input-error_active",
-  formSet: ".popup__fieldset",
 };
 // функция проверяет валидность поля ввода
 const hasInvalidInput = (inputList) => {
@@ -15,37 +14,61 @@ const hasInvalidInput = (inputList) => {
   });
 };
 // функция добавляет класс с ошибкой
-const showError = (formElement, inputElement, errorMessage) => {
+const showError = (
+  formElement,
+  inputElement,
+  errorMessage,
+  inputErrorClass
+) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add(validSettings.inputErrorClass);
+  inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(validSettings.errorInput);
 };
 
 // функция удаляет класс с ошибкой
-const hideError = (formElement, inputElement) => {
+const hideError = (formElement, inputElement, inputErrorClass) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove(validSettings.inputErrorClass);
+  inputElement.classList.remove(inputErrorClass);
   errorElement.classList.remove(validSettings.errorInput);
   errorElement.textContent = "";
 };
 // функция возвращает или убирает текст ошибки в зависимости от валидности поля ввода
-const checkInputValidity = (formElement, inputElement) => {
+const checkInputValidity = (
+  formElement,
+  inputElement,
+  inputErrorClass,
+  errorInput
+) => {
   if (!inputElement.validity.valid) {
-    showError(formElement, inputElement, inputElement.validationMessage);
+    showError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      inputErrorClass,
+      errorInput
+    );
   } else {
-    hideError(formElement, inputElement);
+    hideError(formElement, inputElement, inputErrorClass, errorInput);
   }
+};
+// функция включает кнопку
+const enableSubmitButton = (buttonElement, validSettings) => {
+  buttonElement.classList.remove(validSettings.inactiveButtonClass);
+  buttonElement.removeAttribute("disabled");
+};
+// функция отключает кнопку
+const disableSubmitButton = (buttonElement, validSettings) => {
+  buttonElement.classList.add(validSettings.inactiveButtonClass);
+  buttonElement.setAttribute("disabled", "disabled");
 };
 
 // функция отключает и включает кнопку
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(validSettings.inactiveButtonClass);
-    buttonElement.setAttribute("disabled", "disabled");
+    disableSubmitButton(buttonElement, validSettings);
   } else {
-    buttonElement.classList.remove(validSettings.inactiveButtonClass);
-    buttonElement.removeAttribute("disabled");
+    enableSubmitButton(buttonElement, validSettings);
   }
 };
 
@@ -75,12 +98,7 @@ function enableValidation(validSettings) {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    const fieldsetList = Array.from(
-      formElement.querySelectorAll(validSettings.formSet)
-    );
-    fieldsetList.forEach((fieldSet) => {
-      setEventListeners(fieldSet);
-    });
+    setEventListeners(formElement, validSettings);
   });
 }
 
