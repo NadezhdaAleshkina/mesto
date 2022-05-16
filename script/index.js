@@ -96,8 +96,9 @@ const handleSubmitAddElementForm = (event) => {
   closePopup(popupElemeht);
   inputPlaceName.value = "";
   inputPlaceLink.value = "";
+  
   const buttonElement = formAdd.querySelector(".popup__btn-save");
-  disableSubmitButton(buttonElement, validSettings);
+  disableSubmitButton(buttonElement, validSettings.inactiveButtonClass);
 };
 
 const handleDeleteElementCard = (event) => {
