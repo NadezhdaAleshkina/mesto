@@ -1,6 +1,6 @@
 import { initialCards, validSettings } from './components.js';
 import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import { FormValidator, disableButton } from './FormValidator.js';
 //переменные
 const popupList = document.querySelectorAll(".popup");
 const popupEdit = document.querySelector(".popup_edit");
@@ -45,14 +45,6 @@ const handleEscUp = (event) => {
     closePopup(activePopup);
   }
 };
-
-// функция закрытия попапа кликом на оверлей
-function closeOverlay(event) {
-  if (event.target.classList.contains("popup")) {
-    closePopup(event.target);
-  }
-};
-
 //функция для открытия попапа редактирования
 function openPropfilePopup() {
   editProfileFormInputs();
@@ -63,7 +55,7 @@ function editProfileFormInputs() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
-function formSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -73,57 +65,57 @@ function formSubmitHandler(evt) {
 //функции попап добавления карточек
 const handleSubmitAddElementForm = (event) => {
   event.preventDefault();
-  const card = new Card(
-    { name: inputPlaceName.value, link: inputPlaceLink.value },
-    ".element-template"
-  );
-  const cardElement = card.generateCard();
-  elementContainer.prepend(cardElement);
+  renderElement({ name: inputPlaceName.value, link: inputPlaceLink.value });
   closePopup(popupElemeht);
-  inputPlaceName.value = "";
-  inputPlaceLink.value = "";
+  formAdd.reset();
   const buttonElement = formAdd.querySelector(".popup__btn-save");
- buttonElement.classList.add("popup__btn-save_inactive");
-  buttonElement.setAttribute("disabled", "disabled");
+  disableButton(buttonElement, validSettings.inactiveButtonClass);
 };
-//слушатели
-  // закрытие попапов кликом на оверлей
-  popupEdit.addEventListener("mousedown", closeOverlay);
-  popupImageElement.addEventListener("mousedown", closeOverlay);
-  popupElemeht.addEventListener("mousedown", closeOverlay);
-    //  Открыть закрыть слушатель попапа для редактирования
-  buttonEdit.addEventListener("click", () => openPropfilePopup());
-  buttonClose.addEventListener("click", () => closePopup(popupEdit));
-    // сохранение изменений
-  formElementEdit.addEventListener("submit", formSubmitHandler);
-    //Слушатель открыть закрыть попап добавления карточек
-  popupOpenAdd.addEventListener("click", () => openPopup(popupElemeht));
-  popupCloseAdd.addEventListener("click", () => closePopup(popupElemeht));
-    //слушатель сохранить карточку
-  formAdd.addEventListener("submit", handleSubmitAddElementForm);
-    // Изображение закрыть слушатель
-  popupImageClose.addEventListener("click", () => closePopup(popupImageElement));
-
- // Создадим экземпляр карточки
-initialCards.forEach((elementData) => {
-  const card = new Card(elementData, ".element-template");
+  //функция создания новой карточки 
+function createCard(elementData) {
+  const card = new Card(elementData, ".element-template", handleCardClick);
   const cardElement = card.generateCard();
-  elementContainer.prepend(cardElement);
- const imgElement = cardElement.querySelector(".element__image");
-  imgElement.src = elementData.link;
-  imgElement.alt = elementData.name;
-  imgElement.addEventListener("click", (evt) => {
-    popupImage.src = elementData.link;
-    popupImageInfo.textContent = elementData.name;
-    popupImage.alt = elementData.name;
-    openPopup(popupImageElement);
-  });
+return cardElement;
+}
+
+// Рендер карточки
+const renderElement = (elementData) => {
+  elementContainer.prepend(createCard(elementData));
+};
+initialCards.forEach((elementData) => {
+  renderElement(elementData);
 });
 
-
+function handleCardClick(name, link) {
+  popupImage.src = link;
+  popupImageInfo.textContent = name;
+  popupImage.alt = name;
+  openPopup(popupImageElement);
+  };
 //  Валидация попапов
 const validformElementEdit = new FormValidator(validSettings, formElementEdit);
 validformElementEdit.enableValidation();
 
 const validformAdd = new FormValidator(validSettings, formAdd);
 validformAdd.enableValidation();
+
+//слушатели
+  // закрытие попапов кликом на оверлей
+  popupList.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains("popup")){
+          closePopup(evt.target)
+        }
+        if (evt.target.classList.contains('popup__btn-close')) {
+          closePopup(popup)
+        }
+    })
+   });
+  //  Открыть закрыть слушатель попапа для редактирования
+  buttonEdit.addEventListener("click", () => openPropfilePopup());
+    // сохранение изменений
+  formElementEdit.addEventListener("submit", handleProfileFormSubmit);
+  popupOpenAdd.addEventListener("click", () => openPopup(popupElemeht));
+    //слушатель сохранить карточку
+  formAdd.addEventListener("submit", handleSubmitAddElementForm);
+    

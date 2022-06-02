@@ -65,7 +65,6 @@
     });
   });
 };
-
   // функция находит и обрабатывает все формы на странице
   enableValidation() {
        this._formElement.addEventListener("submit", (evt) => {
@@ -74,6 +73,9 @@
       this._setEventListeners();
     }
 }
- 
-export {FormValidator};
+const disableButton = (buttonElement, inactiveButtonClass) => {
+  buttonElement.classList.add(inactiveButtonClass);
+  buttonElement.setAttribute("disabled", "disabled");
+};
+export {FormValidator, disableButton};
 
