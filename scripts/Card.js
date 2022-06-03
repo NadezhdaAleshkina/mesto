@@ -15,7 +15,6 @@
       .cloneNode(true);
     return cardElement;
   }
-
 // слушатели
   _setEventListeners() {
     // кнопка удаления карточки
@@ -33,7 +32,6 @@
       this._handleCardClick(this._name, this._link);
       }); 
   }
-  
   // Генерируем готовую карточку
   generateCard() {
     this._element = this._getTemplate();

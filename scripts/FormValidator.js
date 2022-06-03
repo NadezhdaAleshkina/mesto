@@ -43,14 +43,14 @@
   this._buttonElement.removeAttribute("disabled");
 };
 // функция отключает кнопку
- _disableSubmitButton = () => {
+ disableSubmitButton = () => {
   this._buttonElement.classList.add(this._inactiveButtonClass);
   this._buttonElement.setAttribute("disabled", "disabled");
 };
   // функция отключает и включает кнопку
  _toggleButtonState = () => {
   if (this._hasInvalidInput()) {
-    this._disableSubmitButton();
+    this.disableSubmitButton();
   } else {
     this._enableSubmitButton();
   }
@@ -63,19 +63,14 @@
         this._checkInputValidity(inputElement);
         this._toggleButtonState();
     });
-  });
+  }); 
 };
   // функция находит и обрабатывает все формы на странице
   enableValidation() {
-       this._formElement.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-      });
-      this._setEventListeners();
+    this._formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });  
+    this._setEventListeners();
     }
-}
-const disableButton = (buttonElement, inactiveButtonClass) => {
-  buttonElement.classList.add(inactiveButtonClass);
-  buttonElement.setAttribute("disabled", "disabled");
 };
-export {FormValidator, disableButton};
-
+export {FormValidator};

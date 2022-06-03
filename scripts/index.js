@@ -1,6 +1,6 @@
 import { initialCards, validSettings } from './components.js';
 import { Card } from './Card.js';
-import { FormValidator, disableButton } from './FormValidator.js';
+import { FormValidator } from './FormValidator.js';
 //переменные
 const popupList = document.querySelectorAll(".popup");
 const popupEdit = document.querySelector(".popup_edit");
@@ -68,8 +68,7 @@ const handleSubmitAddElementForm = (event) => {
   renderElement({ name: inputPlaceName.value, link: inputPlaceLink.value });
   closePopup(popupElemeht);
   formAdd.reset();
-  const buttonElement = formAdd.querySelector(".popup__btn-save");
-  disableButton(buttonElement, validSettings.inactiveButtonClass);
+  validformAdd.disableSubmitButton();
 };
   //функция создания новой карточки 
 function createCard(elementData) {
