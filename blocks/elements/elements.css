@@ -2,6 +2,7 @@
   width: calc((100vw - 320px) / (1280 - 320) * (880 - 320) + 300px);
   margin: calc((100vw - 320px) / (1280 - 320) * (51 - 36) + 36px) auto
     calc((100vw - 320px) / (1280 - 320) * (66 - 48) + 48px);
+    
 }
 
 @media screen and (min-width: 1280px) {

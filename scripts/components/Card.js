@@ -1,18 +1,19 @@
- class Card {
-  constructor(elementData, cardSelector, handleCardClick) {
-    this._name = elementData.name;
-    this._link = elementData.link;
+export default class Card {
+  constructor({ data, handleCardClick }, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    
   }
   // Получаем шаблон карточки
   _getTemplate() {
     // забираем разметку и клонируем элемент
     const cardElement = document
       .querySelector(this._cardSelector)
-      .content.querySelector(".element")
+      .content
+      .querySelector('.element')
       .cloneNode(true);
+
     return cardElement;
   }
 // слушатели
@@ -28,9 +29,11 @@
         this._buttonLike.classList.toggle("element__like-btn_active");
       });
      //  открыть картинку
+     
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
-      }); 
+     }); 
+     
   }
   // Генерируем готовую карточку
   generateCard() {
@@ -43,8 +46,8 @@
     this._buttonLike = this._element.querySelector(".element__like-btn");
     this._buttonDelete = this._element.querySelector(".element__delete-btn");
     this._setEventListeners();
+    
     // Вернём элемент наружу
     return this._element;
   }
 }
-export {Card};

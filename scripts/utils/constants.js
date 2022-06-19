@@ -1,4 +1,4 @@
-const initialCards = [
+ const initialCards = [
     {
       name: "Архыз",
       link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
@@ -25,7 +25,7 @@ const initialCards = [
     },
   ];
   // объект с селекторами
-  const validSettings = {
+   const validSettings = {
     formSelector: ".popup__form",
     inputSelector: ".popup__input",
     submitButtonSelector: ".popup__btn-save",
@@ -33,5 +33,13 @@ const initialCards = [
     inputErrorClass: "popup__input_type_error",
     errorInput: "popup__input-error_active",
   };
-  
-export {initialCards, validSettings };
+   const popupEdit = document.querySelector(".popup_edit");
+   const formElementEdit = popupEdit.querySelector(".popup__form");
+   const nameInput = formElementEdit.querySelector('#name');
+   const jobInput = formElementEdit.querySelector('#job');
+   const buttonEdit = document.querySelector(".profile__btn-edit");
+   
+   const popupElemeht = document.querySelector(".popup_add");
+   const popupOpenAdd = document.querySelector(".profile__btn-add");
+   const formAdd = popupElemeht.querySelector(".popup__form");
+   export {validSettings, initialCards, popupEdit, nameInput, jobInput, buttonEdit, formElementEdit, formAdd, popupOpenAdd};

@@ -6,7 +6,7 @@
     <meta name="keywords" content="html, css" />
     <meta name="author" content="Киселева Надежда" />
     <title>Место</title>
-    <link rel="stylesheet" href="pages/index.css" />
+    <link rel="stylesheet" href="./scripts/pages/index.css" />
   </head>
   <body class="page">
     <header class="header">
@@ -37,7 +37,6 @@
         <button
           class="profile__btn-add"
           type="button"
-          title="Добавить новую фотографию"
         ></button>
       </section>
 
@@ -53,7 +52,7 @@
     <div class="popup popup_edit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="profileData" novalidate>
+        <form class="popup__form" method="GET" action="#" name="profileData" novalidate>
           <fieldset class="popup__fieldset">
             <input
               class="popup__input popup__input_type_name"
@@ -141,6 +140,6 @@
         </div>
       </li>
     </template>
-    <script  type="module" src="./scripts/index.js"></script>
+    <script  type="module" src="./scripts/pages/index.js"></script>
   </body>
 </html>
