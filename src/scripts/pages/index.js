@@ -47,11 +47,10 @@ const createCard = (data) => {
   const card = new Card({
     data: data,
     handleCardClick: (name, link) => {
-      openImagePopup.open(name, link);  
-  }}, 
-".element-template");
-const cardElement = card.generateCard();
-return cardElement;
+    openImagePopup.open(name, link);
+    }}, '.element-template');
+  const cardElement = card.generateCard();
+  return cardElement;
 };
 
 /* Попап просмотра изображения */
