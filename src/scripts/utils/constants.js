@@ -42,4 +42,8 @@
    const popupElemeht = document.querySelector(".popup_add");
    const popupOpenAdd = document.querySelector(".profile__btn-add");
    const formAdd = popupElemeht.querySelector(".popup__form");
-   export {validSettings, initialCards, popupEdit, nameInput, jobInput, buttonEdit, formElementEdit, formAdd, popupOpenAdd};
+   const popupEditAvatar = document.querySelector('.popup_avatar');
+   const avatar = document.querySelector('.profile__avatar');
+   const formEditAvatar = popupEditAvatar.querySelector('.popup__form');
+   const buttonEditAvatar = document.querySelector('.profile__avatar-btn');
+   export {validSettings, initialCards, popupEdit, nameInput, jobInput, buttonEdit, formElementEdit, formAdd, popupOpenAdd, avatar, buttonEditAvatar, formEditAvatar};

@@ -6,7 +6,6 @@
     <meta name="keywords" content="html, css" />
     <meta name="author" content="Киселева Надежда" />
     <title>Место</title>
-    
   </head>
   <body class="page">
     <header class="header">
@@ -24,14 +23,15 @@
             src= "<%=require('./images/avatar.png')%>"
             alt="Аватар пользователя"
           />
+          <button class="profile__avatar-btn"></button>
           <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <h1 class="profile__name"></h1>
             <button
               class="profile__btn-edit"
               type="button"
               title="Редактировать профиль"
             ></button>
-            <p class="profile__job">Исследователь океана</p>
+            <p class="profile__job"></p>
           </div>
         </div>
         <button
@@ -48,6 +48,26 @@
     <footer class="footer">
       <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
     </footer>
+
+    <div class="popup popup_avatar">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form name="edit-avatar-form" action="#" class="popup__form" novalidate>
+          <fieldset class="popup__fieldset">
+            <input
+              type="url"
+              name="avatar"
+              id="avatar"
+              placeholder="Ссылка на картинку"
+              class="popup__input"
+              required>
+            <span id="avatar-error" class="form__input-error"></span>
+            <button class="popup__btn-save" type="submit" title="Сохранить">Сохранить</button>
+          </fieldset>
+        </form>
+        <button class="popup__btn-close" type="button" title="Закрыть"></button>
+      </div>
+    </div>
 
     <div class="popup popup_edit">
       <div class="popup__container">
@@ -130,16 +150,29 @@
       </div>
     </section>
 
+    <div class="popup popup_delete-card">
+      <div class="popup__container">
+        <button class="popup__btn-close" type="button" title="Закрыть"></button>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <form name="delete-form" action="#" class="popup__form" novalidate>
+          <button class="popup__btn-save" type="submit">Да</button>
+        </form>
+      </div>
+    </div>
+
     <template class="element-template">
       <li class="element">
         <img class="element__image" alt="фото" />
         <div class="element__info">
           <h3 class="element__title"></h3>
-          <button class="element__like-btn" type="button"></button>
+          <div class="element__likes">
+            <button class="element__like-btn" type="button"></button>
+            <span class="element__likes-number"></span>
+          </div>
           <button class="element__delete-btn" type="button"></button>
         </div>
       </li>
     </template>
-    
+
   </body>
 </html>
