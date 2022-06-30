@@ -4,10 +4,10 @@ export default class PopupWithForm extends Popup {
   constructor({ popupSelector, handleFormSubmit }) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
-    this._formSelector = this._popup.querySelector(".popup__form");
-    this._inputList = this._formSelector.querySelectorAll(".popup__input");
-    this._submitButtonSelector =
-      this._formSelector.querySelector(".popup__btn-save");
+    this._formElement = this._popup.querySelector(".popup__form");
+    this._inputList = this._formElement.querySelectorAll(".popup__input");
+    this._formElementSubmitButton =
+      this._formElement.querySelector(".popup__btn-save");
   }
 
   _getInputValues() {
@@ -22,7 +22,7 @@ export default class PopupWithForm extends Popup {
   // слушатели
   setEventListeners() {
     super.setEventListeners();
-    this._formSelector.addEventListener("submit", (event) => {
+    this._formElement.addEventListener("submit", (event) => {
       event.preventDefault();
       this._handleFormSubmit(this._getInputValues());
     });
@@ -30,15 +30,15 @@ export default class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this._formSelector.reset();
+    this._formElement.reset();
   }
 
   // Изменяем состояние кнопки во время загрузки
   loading(isLoading) {
     if (isLoading === true) {
-      this._submitButtonSelector.textContent = "Сохранение...";
+      this._formElementSubmitButton.textContent = "Сохранение...";
     } else {
-      this._submitButtonSelector.textContent = "Сохранить";
+      this._formElementSubmitButton.textContent = "Сохранить";
     }
   }
 }

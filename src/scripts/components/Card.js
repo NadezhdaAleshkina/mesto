@@ -50,7 +50,7 @@ export default class Card {
      }); 
      
   }
- 
+  
    // поставить/удалить лайк, изменение количества лайков
    handleLikeCard(data) {
     this._likes = data.likes;
